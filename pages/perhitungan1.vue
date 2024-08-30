@@ -140,11 +140,10 @@ export default {
         if (response.data && response.data.status === 200) {
           this.response = response.data;
         } else {
-          alert('Unexpected response format.');
+          alert('Gagal.');
         }
       } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('Failed to submit the form.');
+        alert('Terjadi kesalahan');
       }
     }
   }
