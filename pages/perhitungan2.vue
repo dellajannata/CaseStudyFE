@@ -61,8 +61,11 @@
     <div class="response-container" v-if="response">
       <h2>Data Investasi</h2>
       <ul>
+        <li><strong>No Transaksi:</strong> {{ response.no_transaction }}</li>
+        <li><strong>Tanggal Transaksi:</strong> {{ response.tgl_transaksi }}</li>
         <li><strong>Nama:</strong> {{ response.nama }}</li>
         <li><strong>Jenis Kelamin:</strong> {{ response.jenis_kelamin }}</li>
+        <li><strong>Perokok:</strong> {{ response.perokok }}</li>
         <li><strong>Usia:</strong> {{ response.usia }}</li>
         <li><strong>Nominal Investasi:</strong> {{ response.nominal }}</li>
         <li><strong>Lama Investasi:</strong> {{ response.lama }} tahun</li>
@@ -154,7 +157,8 @@ export default {
         perokok: ''
       },
       response: null,
-      total_bayar: null
+      no_transaction: null,
+      tgl_transaksi:null
     };
   },
   methods: {
@@ -163,7 +167,8 @@ export default {
         const response = await this.$axios.post('/api/perhitungan2', this.form);
         if (response.data && response.data.status === 200) {
           this.response = response.data.data;
-          this.total_bayar = response.data.data.total_bayar;
+          this.no_transaction = response.data.data.no_transaction;
+          this.tgl_transaksi = response.data.data.tgl_transaksi;
         } else {
           alert('Gagal.');
         }

@@ -139,6 +139,7 @@ export default {
 
         if (response.data && response.data.status === 200) {
           this.response = response.data;
+          this.no = response.data.data.total_bayar;
         } else {
           alert('Gagal.');
         }
