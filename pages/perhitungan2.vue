@@ -10,16 +10,16 @@
       <div class="form-group">
         <label for="jenis_kelamin">Jenis Kelamin:</label>
         <select v-model="form.jenis_kelamin" id="jenis_kelamin" required>
-          <option value="Pria">Pria</option>
-          <option value="Wanita">Wanita</option>
+          <option value="pria">Pria</option>
+          <option value="wanita">Wanita</option>
         </select>
       </div>
 
       <div class="form-group">
         <label for="perokok">Perokok:</label>
         <select v-model="form.perokok" id="perokok" required>
-          <option value="Ya">Ya</option>
-          <option value="Tidak">Tidak</option>
+          <option value="ya">Ya</option>
+          <option value="tidak">Tidak</option>
         </select>
       </div>
 
@@ -30,7 +30,7 @@
 
       <div class="form-group">
         <label for="nominal">Nominal Investasi:</label>
-        <input type="number" v-model="form.nominal" id="nominal" required/>
+        <input type="number" v-model="form.nominal" id="nominal" required />
       </div>
 
       <div class="form-group">
@@ -61,16 +61,16 @@
     <div class="response-container" v-if="response">
       <h2>Data Investasi</h2>
       <ul>
-        <li><strong>Nama:</strong> {{ form.nama }}</li>
-        <li><strong>Jenis Kelamin:</strong> {{ form.jenis_kelamin }}</li>
-        <li><strong>Usia:</strong> {{ form.usia }}</li>
-        <li><strong>Nominal Investasi:</strong> {{ form.nominal }}</li>
-        <li><strong>Lama Investasi:</strong> {{ form.lama }} tahun</li>
-        <li><strong>Periode Pembayaran:</strong> {{ form.periode_pembayaran }}</li>
-        <li><strong>Metode Bayar:</strong> {{ form.metode_bayar }}</li>
+        <li><strong>Nama:</strong> {{ response.nama }}</li>
+        <li><strong>Jenis Kelamin:</strong> {{ response.jenis_kelamin }}</li>
+        <li><strong>Usia:</strong> {{ response.usia }}</li>
+        <li><strong>Nominal Investasi:</strong> {{ response.nominal }}</li>
+        <li><strong>Lama Investasi:</strong> {{ response.lama }} tahun</li>
+        <li><strong>Periode Pembayaran:</strong> {{ response.periode_pembayaran }}</li>
+        <li><strong>Metode Bayar:</strong> {{ response.metode_bayar }}</li>
+        <li><strong>Total Bayar:</strong> {{ response.total_bayar }}</li> <!-- Pastikan ini -->
       </ul>
     </div>
-
   </div>
 </template>
 
@@ -146,13 +146,15 @@ export default {
     return {
       form: {
         nama: '',
-        jenis_kelamin: '', 
+        jenis_kelamin: '',
         usia: '',
         nominal: '',
-        periode_pembayaran:'',
-        metode_bayar:''
+        periode_pembayaran: '',
+        metode_bayar: '',
+        perokok: ''
       },
-      response: null 
+      response: null,
+      total_bayar: null
     };
   },
   methods: {
@@ -160,7 +162,8 @@ export default {
       try {
         const response = await this.$axios.post('/api/perhitungan2', this.form);
         if (response.data && response.data.status === 200) {
-          this.response = response.data;
+          this.response = response.data.data;
+          this.total_bayar = response.data.data.total_bayar;
         } else {
           alert('Gagal.');
         }

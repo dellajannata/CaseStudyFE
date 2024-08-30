@@ -5,8 +5,8 @@
       <div class="form-group">
         <label for="jenis_kelamin">Jenis Kelamin:</label>
         <select v-model="form.jenis_kelamin" id="jenis_kelamin" required>
-          <option value="Pria">Pria</option>
-          <option value="Wanita">Wanita</option>
+          <option value="pria">Pria</option>
+          <option value="wanita">Wanita</option>
         </select>
       </div>
 
@@ -18,8 +18,8 @@
       <div class="form-group">
         <label for="perokok">Perokok:</label>
         <select v-model="form.perokok" id="perokok" required>
-          <option value="Ya">Ya</option>
-          <option value="Tidak">Tidak</option>
+          <option value="ya">Ya</option>
+          <option value="tidak">Tidak</option>
         </select>
       </div>
 
@@ -38,9 +38,9 @@
 
     <!-- Display API Response -->
     <div class="response-container" v-if="response">
-      <h2>Perhitungan Investasi</h2>
+      <h2>Investment Calculation Results</h2>
       <div v-for="(item, index) in response.data" :key="index">
-        <p><strong>Tahun Ke- {{ index }}:</strong></p>
+        <p><strong>Year {{ index }}:</strong></p>
         <ul>
           <li>Awal: {{ item.awal }}</li>
           <li>Bunga: {{ item.bunga }}</li>
@@ -136,12 +136,14 @@ export default {
     async submitForm() {
       try {
         const response = await this.$axios.post('/api/perhitungan1', this.form);
+
         if (response.data && response.data.status === 200) {
           this.response = response.data;
         } else {
-          alert('Gagal.');
+          alert('Unexpected response format.');
         }
       } catch (error) {
+        console.error('Error submitting form:', error);
         alert('Failed to submit the form.');
       }
     }
