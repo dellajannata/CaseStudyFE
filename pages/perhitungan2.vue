@@ -71,7 +71,7 @@
         <li><strong>Lama Investasi:</strong> {{ response.lama }} tahun</li>
         <li><strong>Periode Pembayaran:</strong> {{ response.periode_pembayaran }}</li>
         <li><strong>Metode Bayar:</strong> {{ response.metode_bayar }}</li>
-        <li><strong>Total Bayar:</strong> {{ response.total_bayar }}</li> <!-- Pastikan ini -->
+        <li><strong>Total Bayar:</strong> {{ response.total_bayar }}</li>
       </ul>
     </div>
   </div>
@@ -157,8 +157,7 @@ export default {
         perokok: ''
       },
       response: null,
-      no_transaction: null,
-      tgl_transaksi:null
+      
     };
   },
   methods: {
@@ -167,8 +166,6 @@ export default {
         const response = await this.$axios.post('/api/perhitungan2', this.form);
         if (response.data && response.data.status === 200) {
           this.response = response.data.data;
-          this.no_transaction = response.data.data.no_transaction;
-          this.tgl_transaksi = response.data.data.tgl_transaksi;
         } else {
           alert('Gagal.');
         }

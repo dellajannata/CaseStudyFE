@@ -38,9 +38,9 @@
 
     <!-- Display API Response -->
     <div class="response-container" v-if="response">
-      <h2>Investment Calculation Results</h2>
-      <div v-for="(item, index) in response.data" :key="index">
-        <p><strong>Year {{ index }}:</strong></p>
+      <h2>Perhitungan Investasi</h2>
+      <div v-for="(item, index) in response" :key="index">
+        <p><strong>Tahun ke- {{ index }}:</strong></p>
         <ul>
           <li>Awal: {{ item.awal }}</li>
           <li>Bunga: {{ item.bunga }}</li>
@@ -138,8 +138,7 @@ export default {
         const response = await this.$axios.post('/api/perhitungan1', this.form);
 
         if (response.data && response.data.status === 200) {
-          this.response = response.data;
-          this.no = response.data.data.total_bayar;
+          this.response = response.data.data;
         } else {
           alert('Gagal.');
         }
